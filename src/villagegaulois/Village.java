@@ -122,29 +122,46 @@ public class Village {
 					++nbEtalsVides;
 				}
 			}
-			res.append("Il reste" + nbEtalsVides + "étals non utilisés dans le marché.");
+			res.append("Il reste" + nbEtalsVides + "ï¿½tals non utilisï¿½s dans le marchï¿½.");
 			return(res.toString());
 		}
 	}
 	public String installerVendeur(Gaulois vendeur, String produit, int nbProduit) {
 		int indiceEtal = marche.trouverEtalLibre();
 		marche.utiliserEtal(indiceEtal,vendeur,produit,nbProduit);
-		return(vendeur.getNom() + " cherche un endroit pour vendre " + nbProduit + " " + produit + ".\nLe vendeur " + vendeur.getNom() + " vend des " + produit + " à l'étal n°" + (indiceEtal+1) + ".\n");
+		return(vendeur.getNom() + " cherche un endroit pour vendre " + nbProduit + " " + produit + ".\nLe vendeur " + vendeur.getNom() + " vend des " + produit + " ï¿½ l'ï¿½tal nï¿½" + (indiceEtal+1) + ".\n");
 	}
 	
 	public String rechercherVendeursProduit(String produit) {
 		Etal[] etalsAvecProduit = marche.trouverEtals(produit);
 		if (etalsAvecProduit == null) {
-			return("Il n'y a pas de vendeur qui propose des "+produit+" au marché.");
+			return("Il n'y a pas de vendeur qui propose des "+produit+" au marchï¿½.");
 		}
 		else if (etalsAvecProduit.length == 1) {
-			return("Seul le vendeur " + etalsAvecProduit[0].getVendeur() + " propose des " + produit + " au marché.");
+			return("Seul le vendeur " + etalsAvecProduit[0].getVendeur() + " propose des " + produit + " au marchï¿½.");
 		}
 		StringBuilder res = new StringBuilder();
 		res.append("Les vendeurs qui proposent des fleurs sont :");
 		for (int i=0; i<etalsAvecProduit.length; i++) {
 			res.append("\n- " + etalsAvecProduit[i].getVendeur());
 		}
+		return(res.toString());
+	}
+	
+	public Etal rechercherEtal(Gaulois vendeur) {
+		return(marche.trouverVendeur(vendeur));
+	}
+	
+	public String partirVendeur(Gaulois vendeur) {
+		return(rechercherEtal(vendeur).libererEtal());
+	}
+	
+	public String afficherMarche() {
+		if (marche.nbetals == 0) return("Le marchÃ© n'a aucun Ã©tal.");
+		StringBuilder res = new StringBuilder();
+		if (marche.nbetals == 1) res.append("Le marchÃ© du village \"" + getNom() + "\" possÃ¨de cet unique Ã©tal:");
+		else res.append("Le marchÃ© du village \"" + getNom() + "\" possÃ¨de ces Ã©tals :\n");
+		res.append(marche.afficherMarche());
 		return(res.toString());
 	}
 }
