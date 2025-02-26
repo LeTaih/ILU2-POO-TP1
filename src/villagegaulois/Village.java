@@ -85,22 +85,28 @@ public class Village {
 		}
 		
 		public Etal[] trouverEtals(String produit) {
-			int nbEtalsAvecProduit = 0;
-			for(int i =0; i<nbetals;i++) {
-				if (etals[i].contientProduit(produit)) {
-					++nbEtalsAvecProduit;
-				}
-			}
+		    int nbEtalsAvecProduit = 0;
+		    for(int i = 0; i < nbetals-1; i++) {
+		        if (etals[i].contientProduit(produit)) {
+		            ++nbEtalsAvecProduit;
+		        }
+		    }
+		    
+		    if (nbEtalsAvecProduit == 0) {
+		        return null;
+		    }
+		    
 		    Etal[] etalsAvecProduit = new Etal[nbEtalsAvecProduit];
-			int j=0;
-			for(int i =0; i<nbetals;i++) {
-				if (etals[i].contientProduit(produit)) {
-					etalsAvecProduit[j] = etals[i];
-					++j;
-				}
-			}
-			return(etalsAvecProduit);
+		    int j = 0;
+		    for(int i = 0; i < nbetals-1; i++) {
+		        if (etals[i].contientProduit(produit)) {
+		            etalsAvecProduit[j] = etals[i];
+		            ++j;
+		        }
+		    }
+		    return etalsAvecProduit;
 		}
+
 		
 		public Etal trouverVendeur(Gaulois gaulois) {
 			for(int i =0; i<nbetals;i++) {
@@ -122,28 +128,28 @@ public class Village {
 					++nbEtalsVides;
 				}
 			}
-			res.append("Il reste" + nbEtalsVides + "�tals non utilis�s dans le march�.");
+			res.append("Il reste " + nbEtalsVides + " étals non utilisés sur le marché.\n");
 			return(res.toString());
 		}
 	}
 	public String installerVendeur(Gaulois vendeur, String produit, int nbProduit) {
 		int indiceEtal = marche.trouverEtalLibre();
 		marche.utiliserEtal(indiceEtal,vendeur,produit,nbProduit);
-		return(vendeur.getNom() + " cherche un endroit pour vendre " + nbProduit + " " + produit + ".\nLe vendeur " + vendeur.getNom() + " vend des " + produit + " � l'�tal n�" + (indiceEtal+1) + ".\n");
+		return(vendeur.getNom() + " cherche un endroit pour vendre " + nbProduit + " " + produit + ".\nLe vendeur " + vendeur.getNom() + " vend des " + produit + " à l'étal n°" + (indiceEtal+1) + ".\n");
 	}
 	
 	public String rechercherVendeursProduit(String produit) {
 		Etal[] etalsAvecProduit = marche.trouverEtals(produit);
 		if (etalsAvecProduit == null) {
-			return("Il n'y a pas de vendeur qui propose des "+produit+" au march�.");
+			return("Il n'y a pas de vendeur qui propose des "+produit+" au marché.");
 		}
 		else if (etalsAvecProduit.length == 1) {
-			return("Seul le vendeur " + etalsAvecProduit[0].getVendeur() + " propose des " + produit + " au march�.");
+			return("Seul le vendeur " + etalsAvecProduit[0].getVendeur() + " propose des " + produit + " au marché.");
 		}
 		StringBuilder res = new StringBuilder();
 		res.append("Les vendeurs qui proposent des fleurs sont :");
 		for (int i=0; i<etalsAvecProduit.length; i++) {
-			res.append("\n- " + etalsAvecProduit[i].getVendeur());
+			res.append("\n- " + etalsAvecProduit[i].getVendeur().getNom());
 		}
 		return(res.toString());
 	}
