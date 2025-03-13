@@ -32,9 +32,9 @@ public class Etal {
 	}
 
 	
-	public String libererEtal() throws EtalNullException {
-		if (this.vendeur == null || this.produit == null) {
-			throw new EtalNullException("L'étal n'est pas correctement initialisé.");
+	public String libererEtal() {
+		if (!(etalOccupe)) {
+			throw new IllegalStateException("L'étal n'est pas correctement initialisé.");
 		}
 		etalOccupe = false;
 		StringBuilder chaine = new StringBuilder(
@@ -58,9 +58,15 @@ public class Etal {
 	}
 
 	public String acheterProduit(int quantiteAcheter, Gaulois acheteur) {
+		if (!(etalOccupe)) {
+			throw new IllegalStateException("L'étal doit être occupé.");
+		}
+		if (quantiteAcheter < 1) {
+			throw new IllegalStateException("“la quantité doit être positive.");
+		}
 	    try {
 	        if (acheteur == null || vendeur == null || produit == null) {
-	            throw new IllegalStateException("L'acheteur, le vendeur ou le produit n'est pas correctement initialisé.");
+	            throw new IllegalStateException("L'acheteur, le vendeur ou le produit n'est pas correctement initialisé. (l’acheteur ne doit pas être null)");
 	        }
 
 	        StringBuilder chaine = new StringBuilder();
