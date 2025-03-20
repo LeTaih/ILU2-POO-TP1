@@ -24,13 +24,6 @@ public class Etal {
 		quantiteDebutMarche = quantite;
 		etalOccupe = true;
 	}
-
-	public class EtalNullException extends Exception {
-	    public EtalNullException(String message) {
-	        super(message);
-	    }
-	}
-
 	
 	public String libererEtal() {
 		if (!(etalOccupe)) {
@@ -62,7 +55,7 @@ public class Etal {
 			throw new IllegalStateException("L'étal doit être occupé.");
 		}
 		if (quantiteAcheter < 1) {
-			throw new IllegalStateException("“la quantité doit être positive.");
+			throw new IllegalArgumentException("“la quantité doit être positive.");
 		}
 	    try {
 	        if (acheteur == null || vendeur == null || produit == null) {
