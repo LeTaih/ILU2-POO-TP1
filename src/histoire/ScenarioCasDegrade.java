@@ -1,20 +1,12 @@
 package histoire;
 
-import personnages.Gaulois;
-import villagegaulois.Etal;
-import villagegaulois.Etal.EtalNullException;
+import villagegaulois.Village;
 
 public class ScenarioCasDegrade {
 	public static void main(String[] args) {
-		Etal etal = new Etal();
-		Gaulois acheteur = new Gaulois(null,(Integer) null);
-		etal.acheterProduit(5,acheteur);
-
-//		try {
-//			etal.libererEtal();
-//		} catch (EtalNullException e) {
-//			e.printStackTrace();
-//		}
+		Village village = new Village("ville",3,3);
+		village.afficherVillageois();
+		
 		System.out.println("Fin du test");
 	}
 
