@@ -45,7 +45,7 @@ public class Village {
 		return null;
 	}
 
-	public String afficherVillageois() {
+	public String afficherVillageois() throws VillageSansChefException {
 		StringBuilder chaine = new StringBuilder();
 		if (chef == null) {
 			throw new VillageSansChefException("Le village ne contient pas de chef");
@@ -63,10 +63,10 @@ public class Village {
 		return chaine.toString();
 	}
 	
-	private class Marche {
-		public Etal etals[];
-		public int nbetals;
-		public Marche(int nbEtals) {
+	private static class Marche {
+		private Etal etals[];
+		private int nbetals;
+		private Marche(int nbEtals) {
 			this.nbetals = nbEtals;
 			etals = new Etal[nbEtals];
 			for (int i = 0; i < nbEtals; i++) {
@@ -74,11 +74,11 @@ public class Village {
 	            }
 		}
 		
-		void utiliserEtal(int indiceEtal, Gaulois vendeur, String produit, int nbProduit) {
+		private void utiliserEtal(int indiceEtal, Gaulois vendeur, String produit, int nbProduit) {
 			etals[indiceEtal].occuperEtal(vendeur, produit, nbProduit);
 		}
 		
-		public int trouverEtalLibre() {
+		private int trouverEtalLibre() {
 			for(int i =0; i<nbetals-1;i++) {
 				if (!etals[i].isEtalOccupe()) {
 					return(i);
@@ -87,7 +87,7 @@ public class Village {
 			return(-1);
 		}
 		
-		public Etal[] trouverEtals(String produit) {
+		private Etal[] trouverEtals(String produit) {
 		    int nbEtalsAvecProduit = 0;
 		    for(int i = 0; i < nbetals-1; i++) {
 		        if (etals[i].contientProduit(produit)) {
